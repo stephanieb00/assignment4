@@ -5,6 +5,9 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
+import AddCredit from './components/addCredit';
+import AddDebit from './components/addDebit';
+
 class App extends Component {
 
   constructor() {

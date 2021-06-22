@@ -7,4 +7,4 @@ class AddCredit extends Component {
 
 }
 
-export default AddCreds;
+export default AddCredit;
