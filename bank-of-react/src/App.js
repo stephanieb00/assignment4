@@ -16,6 +16,8 @@ class App extends Component {
 
     this.state = {
       accountBalance: 0.00,
+      //debitList:[],
+      //creditList:[],
       currentUser: {
         userName: 'joe_shmo',
         memberSince: '07/23/96',
@@ -29,38 +31,54 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
-  componentDidMount = async() => {
-    this.addCredit();
-    this.addDebit();
+  async componentDidMount() {
+    let debits = await axios.get("https://moj-api.herokuapp.com/debits");
+    let credits = await axios.get("https://moj-api.herokuapp.com/credits");
+
+    let temp = debits.data;
+    let temp2 = credits.data;
+    this.setState({debitList: temp,});
+    this.setState({creditList: temp2,});
+
+    //print data from API response
+    console.log("Debits: ", debits.data);
+    console.log("Credits: ", credits.data);
+
+    //To handle the accountBalance
+    for(let i of temp){
+      //console.log("Debits amount: ", i.amount);
+      this.setState({accountBalance: parseInt(this.state.accountBalance) - i.amount});
+      //console.log(i.amount,this.state.accountBalance);
+    }
+    for(let i of temp2){
+      //console.log("Debits amount: ", i.amount);
+      this.setState({accountBalance: parseInt(this.state.accountBalance) + i.amount});
+      //console.log(i.amount,this.state.accountBalance);
+    }
+
 
   }
 
-  //addCredit function
-  addCredit()
-  {
-    const creditAPI = "https://moj-api.herokuapp.com/credits";
 
-    axios.get(creditAPI).then(response =>{
-      let temp = response.data;
-      this.setState({creditList: temp,})
-    })
+  addDebit = (debits) => {
+    const newDebit = [debits, ...this.state.debitList]
+    this.setState({debitList: newDebit})
+    this.setState({accountBalance: parseInt(this.state.accountBalance) - parseInt(debits.amount)})
   }
 
-  updateCredit = (credits) => {
+  addCredit = (credits) => {
     const newCredit = [credits, ...this.state.creditList]
     this.setState({creditList: newCredit})
     this.setState({accountBalance: parseInt(this.state.accountBalance) + parseInt(credits.amount)})
   }
 
-  //addDebit function
-  addDebit(){}
 
   render() {
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);    
     const UserProfileComponent = () => (<UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />);
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits creditList = {this.state.creditList} updateCredit = {this.updateCredit} accountBalance = {this.state.accountBalance}/>)
-    const DebitsComponent = () => (<Debits debitList = {this.state.debitList} updateDebit = {this.updateDebit} accountBalance = {this.state.accountBalance}/>)
+    const CreditsComponent = () => (<Credits creditList = {this.state.creditList} addCredit = {this.addCredit} accountBalance = {this.state.accountBalance}/>)
+    const DebitsComponent = () => (<Debits debitList = {this.state.debitList} addDebit = {this.addDebit} accountBalance = {this.state.accountBalance}/>)
 
     return (
         <Router>
@@ -74,7 +92,6 @@ class App extends Component {
         </Router>
     );
   }
-
 }
 
 export default App;

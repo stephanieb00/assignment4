@@ -11,6 +11,9 @@ class Credits extends Component {
     */
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleClick = this.handleClick.bind(this);
         this.state = {
             creditList: {
                 id: "",
@@ -28,7 +31,7 @@ class Credits extends Component {
                 return(
                     <div key={credit.id} className="container">
 			        <ul id = "credit-description">Credit Description: {credit.description}</ul>
-			        <ul id = "credit-amount">Credit amount: {credit.amount}</ul>>
+			        <ul id = "credit-amount">Credit amount: {credit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
 			        <ul id = "credit-date">Credit date: {credit.date}</ul>
 			        </div>
                 );
@@ -36,6 +39,7 @@ class Credits extends Component {
             return items;
         }
     }
+
    /*handleDescription = (event) => {
         this.setState({description: event.target.value});
     }
@@ -44,24 +48,28 @@ class Credits extends Component {
         this.setState({amount: event.target.value });
     }*/
 
-    handleChange = (event) => {
+    handleChange(e){
         // alert(e.target.name)
-        const name = event.target.name;
-        const value = event.target.value;
+        const name = e.target.name;
+        const value = e.target.value;
         const date = Date().toLocaleString();
 
         let creditList = this.state.creditList;
-        creditList[name] = value
-        creditList.date = date
+        creditList[name] = value;
+        creditList.date = date;
         this.setState({
             creditList
         })
+        //console.log(creditList)
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.updateCredit(this.state.creditList)
+    handleSubmit(e){
+        e.preventDefault();
+        //console.log(this.state.creditList);
+        //console.log(this.props);//works
+        this.props.addCredit(this.state.creditList);
     }
+    
     
     render() {
 
@@ -71,13 +79,13 @@ class Credits extends Component {
                 <h1>Bank of React</h1>
                 <p></p>
                 <Link to = "/userProfile"><button type = "submit">User Profile</button></Link>
-                <Link to = "/debit"><button type = "submit">Debit</button></Link>
+                <Link to = "/debits"><button type = "submit">Debits</button></Link>
 
                 <AccountBalance accountBalance = {this.props.accountBalance}/>
 
                 <fieldset>
                     <h3>Add Credit</h3>
-                    <form onSubmit={ this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <label>
                             Description:
                         </label>
