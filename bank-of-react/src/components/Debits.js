@@ -26,9 +26,9 @@ class Debits extends Component{
             let items = this.props.debitList.map((debit) =>{
                 return(
                     <div key={debit.id} className="container">
-			        <ul id = "debit-description">Debit Description: {debit.description}</ul>
-			        <ul id = "debit-amount">Debit amount: {debit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
-			        <ul id = "debit-date">Debit date: {debit.date}</ul>
+			        <ul className = "descriptions">Debit Description: {debit.description}</ul>
+			        <ul className = "amounts">Debit amount: {debit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
+			        <ul className = "dates">Debit date: {debit.date}</ul>
 			        </div>
                 );
             });
@@ -61,12 +61,19 @@ class Debits extends Component{
         
         return(
             <div>
-                <h1>Bank of React</h1>
-                <p></p>
-                <Link to = "/userProfile"><button type = "submit">User Profile</button></Link>
-                <Link to = "/credits"><button type = "submit">Credits</button></Link>
-
-                <AccountBalance accountBalance = {this.props.accountBalance}/>
+                <div>
+                    <img src="https://oldschool.runescape.wiki/images/thumb/a/ac/Bank_logo.png/1200px-Bank_logo.png?a29fb" alt="bank"/>
+                    <h1>Bank of React</h1>
+                    <div className="pageLinks">
+                        <Link to="/">Home</Link>
+                        <Link to="/userProfile">User Profile</Link>
+                        <Link to="/login">Login</Link>
+                        <Link to="/credits">Credits</Link>
+                    </div>
+                    <div className="accountBalance">
+                    <AccountBalance accountBalance = {this.props.accountBalance}/>
+                    </div>
+                </div>
 
                 <fieldset>
                     <h3>Add Debit</h3>
