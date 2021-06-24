@@ -30,9 +30,9 @@ class Credits extends Component {
             let items = this.props.creditList.map((credit) =>{
                 return(
                     <div key={credit.id} className="container">
-			        <ul id = "credit-description">Credit Description: {credit.description}</ul>
-			        <ul id = "credit-amount">Credit amount: {credit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
-			        <ul id = "credit-date">Credit date: {credit.date}</ul>
+			        <ul className = "descriptions">Credit Description: {credit.description}</ul>
+			        <ul className = "amounts">Credit amount: {credit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
+			        <ul className = "dates">Credit date: {credit.date}</ul>
 			        </div>
                 );
             });
@@ -76,13 +76,20 @@ class Credits extends Component {
         
         return(
             <div>
-                <h1>Bank of React</h1>
-                <p></p>
-                <Link to = "/userProfile"><button type = "submit">User Profile</button></Link>
-                <Link to = "/debits"><button type = "submit">Debits</button></Link>
-
-                <AccountBalance accountBalance = {this.props.accountBalance}/>
-
+                <div>
+                    <img src="https://oldschool.runescape.wiki/images/thumb/a/ac/Bank_logo.png/1200px-Bank_logo.png?a29fb" alt="bank"/>
+                    <h1>Bank of React</h1>
+                    <div className="pageLinks">
+                        <Link to="/">Home</Link>
+                        <Link to="/userProfile">User Profile</Link>
+                        <Link to="/login">Login</Link>
+                        <Link to="/debits">Debits</Link>
+                    </div>
+                    <div className="accountBalance">
+                        <AccountBalance accountBalance = {this.props.accountBalance}/>
+                    </div>
+                </div>
+                
                 <fieldset>
                     <h3>Add Credit</h3>
                     <form onSubmit={this.handleSubmit}>

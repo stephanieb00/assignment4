@@ -1,6 +1,7 @@
 // Login.js
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
 class LogIn extends Component {
   constructor () {
@@ -36,17 +37,29 @@ class LogIn extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="userName">User Name</label>
-            <input type="text" name="userName" onChange={this.handleChange} value={this.state.user.userName} />
+        <div>
+            <img src="https://oldschool.runescape.wiki/images/thumb/a/ac/Bank_logo.png/1200px-Bank_logo.png?a29fb" alt="bank"/>
+            <h1>Bank of React</h1>
+            <div className="pageLinks">
+              <Link to="/">Home</Link>
+              <Link to="/userProfile">User Profile</Link>
+              <Link to="/credits">Credits</Link>
+              <Link to="/debits">Debits</Link>
+            </div>
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
-          </div>
-          <button>Log In</button>
-        </form>
+        <div id ="loginForm">
+          <form onSubmit={this.handleSubmit}>
+            <div className="formSet">
+              <label htmlFor="userName">Username: </label>
+              <input type="text" name="userName" placeholder = "Enter Username" onChange={this.handleChange} value={this.state.user.userName} />
+            </div>
+            <div className="formSet">
+              <label htmlFor="password">Password: </label>
+              <input type="password" name="password" placeholder = "Enter Password"/>
+            </div>
+            <button>Log In</button>
+          </form>
+        </div>
       </div>
     )
   }

@@ -1,0 +1,135 @@
+img{
+    max-width: 10%;   
+    height:auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+h1{
+    text-align: center;
+    color: rgb(160, 240, 160);
+}
+
+.accountBalance{
+    color: rgb(0, 255, 0);
+    font-size: 24px;
+    text-align: center;
+    padding: 2%;
+}
+body{
+    background-color:rgb(0, 0, 0);
+}
+
+a:link{
+    color: rgb(130, 113, 223);
+}
+a:hover{
+    color: rgb(98, 85, 170);
+}
+a:link, a:visited {
+    background-color: blanchedalmond;
+    padding-left:3%;  
+    padding-right:3%;
+    padding-bottom:1%;
+    padding-top:1%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.pageLinks{
+    display: block;
+    text-align: center;
+    margin-top: 2%;
+    border-color:blanchedalmond;
+}
+
+button{
+    display:inline-block;
+    padding:0.5em 3em;
+    border:0.16em solid rgb(130, 113, 223);
+    margin:0 0.3em 0.3em 0;
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:rgb(130, 113, 223);
+    text-align:center;
+    transition: all 0.15s;
+}
+button:hover{
+    color:rgb(98, 85, 170);
+    border-color:rgb(98, 85, 170);
+}
+
+button:active{
+    color:rgb(182, 169, 255);
+    border-color:rgb(182, 169, 255);
+}
+@media all and (max-width:30em){
+    button{
+        display:block;
+        margin:0.6em auto;
+    }
+}
+
+/*Login Page*/
+
+#loginForm{
+    padding: 5%;
+    text-align: center;
+}
+
+.formSet{
+    padding: 1%;
+    color:blanchedalmond;
+}
+
+input[type=text], input[type=password],input[type=number] {
+    width: 30%;
+    padding: 0.75%;
+    display: inline-block;
+    border: 2px solid rgb(241, 227, 227);
+    box-sizing: border-box;
+    border-style: inset;
+}
+
+/*User Profile Page*/
+.userProfile{
+    padding: 1%;
+    color:blanchedalmond;
+}
+
+#usr{
+    text-align: center;
+}
+
+/*Credit and Debit*/
+
+h3{
+    text-align: center;
+    color:rgb(57, 116, 57);
+}
+
+label{
+    color:rgb(70, 65, 58);
+}
+
+fieldset{
+    text-align: center;
+    background-color:rgb(207, 213, 255);
+}
+
+.container{
+    text-align: center;
+    padding:2%;
+
+}
+
+ul{
+    list-style: inside;
+    color:rgb(196, 192, 224);
+}
