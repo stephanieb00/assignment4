@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import AccountBalance from './AccountBalance'
 
 
@@ -9,7 +10,6 @@ class Debits extends Component{
         super(props);
         this.state = {
             debitList: {
-                id: "",
                 description: "",
                 amount: "",
                 date: "",
@@ -37,22 +37,21 @@ class Debits extends Component{
     }
 
 
-    handleChange = (event) => {
+    handleChange = (e) => {
         // alert(e.target.name)
-        const name = event.target.name;
-        const value = event.target.value;
-        const date = Date().toLocaleString();
+        const name = e.target.name;
+        const value = e.target.value;
+        const date = new Date;
+        const temp = {...this.state.debitList};
+        temp[name] = value;
+        temp.date = date.toISOString();
+        temp.id = uuidv4();
+        this.setState({debitList: temp,});
 
-        let debitList = this.state.debitList;
-        debitList[name] = value
-        debitList.date = date
-        this.setState({
-            debitList
-        })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
+    handleSubmit = (e) => {
+        e.preventDefault();
         this.props.addDebit(this.state.debitList)
     }
     

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import AccountBalance from './AccountBalance'
+
 
 class Credits extends Component {
 
@@ -16,9 +18,8 @@ class Credits extends Component {
         //this.handleClick = this.handleClick.bind(this);
         this.state = {
             creditList: {
-                id: "",
                 description: "",
-                amount: "",
+                amount: 0,
                 date: "",
             },
         }
@@ -27,18 +28,19 @@ class Credits extends Component {
     showCredits(){
         if(this.props.creditList ){
 
-            let items = this.props.creditList.map((credit) =>{
-                return(
-                    <div key={credit.id} className="container">
-			        <ul className = "descriptions">Credit Description: {credit.description}</ul>
-			        <ul className = "amounts">Credit amount: {credit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
-			        <ul className = "dates">Credit date: {credit.date}</ul>
+            let items = this.props.creditList.map(credit =>(
+                //return(
+                    <div key ={credit.id} className="container">
+			            <ul className = "descriptions">Credit Description: {credit.description}</ul>
+			            <ul className = "amounts">Credit amount: {credit.amount.toLocaleString("en-US",{style: "currency", currency: "USD"})}</ul>
+			            <ul className = "dates">Credit date: {credit.date}</ul>
 			        </div>
-                );
-            });
+                //);
+            ));
             return items;
         }
     }
+
 
    /*handleDescription = (event) => {
         this.setState({description: event.target.value});
@@ -52,15 +54,13 @@ class Credits extends Component {
         // alert(e.target.name)
         const name = e.target.name;
         const value = e.target.value;
-        const date = Date().toLocaleString();
+        const date = new Date;
+        const temp = {...this.state.creditList};
+        temp[name] = value;
+        temp.date = date.toISOString();
+        temp.id = uuidv4();
+        this.setState({creditList: temp,});
 
-        let creditList = this.state.creditList;
-        creditList[name] = value;
-        creditList.date = date;
-        this.setState({
-            creditList
-        })
-        //console.log(creditList)
     }
 
     handleSubmit(e){
@@ -68,6 +68,7 @@ class Credits extends Component {
         //console.log(this.state.creditList);
         //console.log(this.props);//works
         this.props.addCredit(this.state.creditList);
+        this.forceUpdate();
     }
     
     
@@ -106,6 +107,7 @@ class Credits extends Component {
                 </fieldset>
 
                 {this.showCredits()}
+
             </div>
         );
     }
