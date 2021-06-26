@@ -16,8 +16,8 @@ class App extends Component {
 
     this.state = {
       accountBalance: 0.00,
-      //debitList:[],
-      //creditList:[],
+      debitList:[],
+      creditList:[],
       currentUser: {
         userName: 'joe_shmo',
         memberSince: '07/23/96',
@@ -47,12 +47,17 @@ class App extends Component {
     //To handle the accountBalance
     for(let i of temp){
       //console.log("Debits amount: ", i.amount);
-      this.setState({accountBalance: parseInt(this.state.accountBalance) - i.amount});
+
+      let numTemp = parseFloat(this.state.accountBalance) - i.amount;
+      numTemp = numTemp.toFixed(2);
+      this.setState({accountBalance: numTemp});
       //console.log(i.amount,this.state.accountBalance);
     }
     for(let i of temp2){
       //console.log("Debits amount: ", i.amount);
-      this.setState({accountBalance: parseInt(this.state.accountBalance) + i.amount});
+      let numTemp2 = parseFloat(this.state.accountBalance) + i.amount
+      numTemp2 = numTemp2.toFixed(2);
+      this.setState({accountBalance: numTemp2});
       //console.log(i.amount,this.state.accountBalance);
     }
 
@@ -61,24 +66,28 @@ class App extends Component {
 
 
   addDebit = (debits) => {
-    const newDebit = [debits, ...this.state.debitList]
-    this.setState({debitList: newDebit})
-    this.setState({accountBalance: parseInt(this.state.accountBalance) - parseInt(debits.amount)})
+    const newDebit = [debits, ...this.state.debitList];
+    this.setState({debitList: newDebit});
+    let numTemp = parseFloat(this.state.accountBalance) - parseFloat(debits.amount);
+    numTemp = numTemp.toFixed(2);
+    this.setState({accountBalance: numTemp});
   }
 
   addCredit = (credits) => {
-    const newCredit = [credits, ...this.state.creditList]
-    this.setState({creditList: newCredit})
-    this.setState({accountBalance: parseInt(this.state.accountBalance) + parseInt(credits.amount)})
+    const newCredit = [credits, ...this.state.creditList];
+    this.setState({creditList: newCredit});
+    let numTemp =  parseFloat(this.state.accountBalance) + parseFloat(credits.amount);
+    numTemp = numTemp.toFixed(2);
+    this.setState({accountBalance: numTemp});
   }
 
 
   render() {
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);    
     const UserProfileComponent = () => (<UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />);
-    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits creditList = {this.state.creditList} addCredit = {this.addCredit} accountBalance = {this.state.accountBalance}/>)
-    const DebitsComponent = () => (<Debits debitList = {this.state.debitList} addDebit = {this.addDebit} accountBalance = {this.state.accountBalance}/>)
+    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);
+    const CreditsComponent = () => (<Credits creditList = {this.state.creditList} addCredit = {this.addCredit} accountBalance = {this.state.accountBalance}/>);
+    const DebitsComponent = () => (<Debits debitList = {this.state.debitList} addDebit = {this.addDebit} accountBalance = {this.state.accountBalance}/>);
 
     return (
         <Router>
